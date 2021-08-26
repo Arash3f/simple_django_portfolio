@@ -1,0 +1,299 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"/>
+
+    <title>Portfolio</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'free_template/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'free_template/assets/css/fontawesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'free_template/assets/css/templatemo-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'free_template/assets/css/owl.css' %}" />
+    <link rel="stylesheet" href="{% static 'free_template/assets/css/lightbox.css' %}" />
+  
+  </head>
+
+  <body>
+    <div id="page-wraper">
+      <!-- Sidebar Menu -->
+      <div class="responsive-nav">
+        <i class="fa fa-bars" id="menu-toggle"></i>
+        <div id="menu" class="menu">
+          <i class="fa fa-times" id="menu-close"></i>
+          <div class="container">
+            <div class="image">
+              <img src="{{user.picture.url}}" alt="{{user.user}}" />
+            </div>
+            <div class="author-content">
+              <h4>{{user.user.get_full_name}}</h4>
+              <span>{{user.job}}</span><br>
+              <span>{{user.date_of_birth}}</span>
+            </div>
+            <nav class="main-nav" role="navigation">
+              <ul class="main-menu">
+                <li><a href="#section1">About</a></li>
+                <li><a href="#section2">Skill</a></li>
+                <li><a href="#section3">Experience</a></li>
+                <li><a href="#section4">Service</a></li>
+                <li><a href="#section5">Portfolio</a></li>
+                <li><a href="#section6">Contact</a></li>
+              </ul>
+            </nav>
+            <div class="social-network">
+              <ul class="soial-icons">
+                <li>
+                  <a href="{{user.github}}"
+                    ><i class="fa fa-facebook"></i
+                  ></a>
+                </li>
+                <li>
+                  <a href="{{user.github}}"><i class="fa fa-github"></i></a>
+                </li>
+                <li>
+                  <a href="{{user.skype}}"><i class="fa fa-skype"></i></a>
+                </li>
+                <li>
+                  <a href="{{user.twitter}}"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="{{user.instagram}}"><i class="fa fa-instagram"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="copyright-text">
+              <p>Copyright 2019 Reflux Design</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section about-me" data-section="section1">
+        <div class="container">
+          <div class="section-heading" style="text-align: left; ">
+            <h2 style="text-align: center;">About</h2>
+            <div class="line-dec"></div>
+            <span  >
+              {{user.about_me}}
+            </span>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section " data-section="section2">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Skill</h2>
+            <div class="line-dec"></div>
+            <div class="container">
+              <div class="row">
+                  <div class="row col-md-12">
+                    {% for skill in skills %}
+                      <h3 class="progress-title col-md-2" style="text-align: left;">{{skill.title}} - {{skill.amount}}%</h3>
+                      <div class="progress col-md-10">
+                          <div class="progress-bar progress-bar-danger progress-bar-striped active" style="width:{{skill.amount}}%;"></div>
+                      </div>
+                    {% endfor %}
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section " data-section="section3">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Experience</h2>
+            <div class="line-dec"></div>
+            {% for i in experience %}
+            <div class="container">
+              <div class="right-image-post">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="left-text">
+                      <h4>{{i.title}}</h4>
+                      <p style="text-align: left;">
+                        {{i.body}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="right-image">
+                      <img src="{{i.picture.url}}" alt="{{i.Title}}" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="section my-services" data-section="section4">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Service</h2>
+            <div class="line-dec"></div>
+          </div>
+          <div class="row">
+            {% for service in services %}
+            <div class="col-md-6">
+              <div class="service-item">
+                <div class="first-service-icon service-icon"></div>
+                <h4>{{service.title}}</h4>
+                <p>
+                  {{service.about}}
+                </p>
+              </div>
+            </div>
+            {% endfor %}
+            {% if form.subject.errors %}
+                {% for error in form.subject.errors %}
+<strong>{{ error|escape }}</strong>
+                {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </section>
+
+      <section class="section my-work" data-section="section5">
+        <div class="container">
+          <div class="section-heading col-12">
+            <h2>Portfolio</h2>
+            <div class="line-dec"></div>
+          </div>
+          <div class="row">
+            {% for project in projects %}
+            <div class="col-6" data-type="project">
+              <figure class="snip1321">
+                <img src="{{project.picture.url}}" alt="sq-sample26"/>
+                <figcaption>
+                  <h4>{{project.title}}</h4>
+                  <span>{{project.about}}</span>
+                </figcaption>
+              </figure>
+              
+            </div>
+            
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-me" data-section="section6">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Contact</h2>
+            <div class="line-dec"></div>
+          </div>
+          <div class="row">
+            <div class="right-content">
+              <div class="container">
+                <form id="contact" action="/contact/" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6">
+                      <fieldset>
+                        {{form.name}}
+                      </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                      <fieldset>
+                        {{form.email}}
+                      </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                      <fieldset>
+                        {{form.subject}}
+                      </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                      <fieldset>
+                        {{form.message}}
+                      </fieldset>
+                    </div>
+                    <div class="col-md-12">
+                      <fieldset>
+                        <button type="submit" id="form-submit" class="button" value="Save">
+                          Send Message
+                        </button>
+                      </fieldset>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'free_template/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'free_template/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'free_template/assets/js/isotope.min.js' %}"></script>
+    <script src="{% static 'free_template/assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'free_template/assets/js/lightbox.js' %}"></script>
+    <script src="{% static 'free_template/assets/js/custom.js' %}"></script>
+    <script>
+      //according to loftblog tut
+      $(".main-menu li:first").addClass("active");
+
+      var showSection = function showSection(section, isAnimate) {
+        var direction = section.replace(/#/, ""),
+          reqSection = $(".section").filter(
+            '[data-section="' + direction + '"]'
+          ),
+          reqSectionPos = reqSection.offset().top - 0;
+
+        if (isAnimate) {
+          $("body, html").animate(
+            {
+              scrollTop: reqSectionPos
+            },
+            800
+          );
+        } else {
+          $("body, html").scrollTop(reqSectionPos);
+        }
+      };
+
+      var checkSection = function checkSection() {
+        $(".section").each(function() {
+          var $this = $(this),
+            topEdge = $this.offset().top - 80,
+            bottomEdge = topEdge + $this.height(),
+            wScroll = $(window).scrollTop();
+          if (topEdge < wScroll && bottomEdge > wScroll) {
+            var currentId = $this.data("section"),
+              reqLink = $("a").filter("[href*=\\#" + currentId + "]");
+            reqLink
+              .closest("li")
+              .addClass("active")
+              .siblings()
+              .removeClass("active");
+          }
+        });
+      };
+
+      $(".main-menu").on("click", "a", function(e) {
+        e.preventDefault();
+        showSection($(this).attr("href"), true);
+      });
+
+      $(window).scroll(function() {
+        checkSection();
+      });
+
+    </script>
+  </body>
+</html>
